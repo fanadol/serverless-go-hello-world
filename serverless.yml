@@ -1,0 +1,24 @@
+service: <YOUR_SERVICE_NAME>
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  runtime: go1.x
+  region: ap-southeast-1
+  deploymentBucket:
+    name: <YOUR_LAMBDA_BUCKET>
+
+functions:
+  hello:
+    handler: bin/main
+    events:
+      - http:
+          path: hello
+          method: get
+          cors: true
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
